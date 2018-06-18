@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> To-do List </title>
+<meta name="keywords" content="to-do list">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+	background-color:black;
+     }
+h1 {
+	background-color:gray;
+	color:white;
+	text-align:center;
+	width:100%;
+	padding:20px;
+	border:black;
+   }
+section {
+	display:table;
+	width:100%;
+	clear:both;
+	}
+div{
+	float:left;
+	width:30%;
+	background-color:#5F9EA0;
+	padding:30px;
+	height:300px;
+     }
+article {
+	  float:right;
+	  width:60%;
+	  background-color:#556B2F;
+	  color:white;
+	  padding:20px;
+	  height:300px;
+	}
+	ul li button{
+			background-color:grey;
+			color:black;
+	}
+	ul li button:hover{
+		color:maroon;
+		}
+</style>
+</head>
+<body>
+<h1> TO-DO LIST </h1>
+<section>
+	<div id="itemForm">
+		<h4>Enter the item</h4>
+		<input type="text" id="newItem" value="">
+		<br>
+		<button onclick="addItem()"> Add </button>
+	</div>
+	<article>
+		<h3 style="text-align:center"> List of Items <h3>
+		<ul id="item-list"></ul>
+	</article>
+</section>
+<script>
+    var itemInput=document.getElementById("newItem");
+function addItem ()
+{ 
+	var ul=document.getElementById("item-list");
+	var li=document.createElement("LI"); 
+	var label=document.createElement("LABEL");
+	var editButton=document.createElement("BUTTON")
+	editButton.innerText="Edit";
+	editButton.setAttribute("onclick","editItem(this)");
+	var deleteButton=document.createElement("BUTTON");
+	label.setAttribute("style","width:100px")
+	label.setAttribute("style","border:20px")
+	label.innerText=itemInput.value;
+	//label.setAttribute("style","width:100px")
+	deleteButton.innerText="Delete";
+	//deleteButton.style.padding=20px;
+	deleteButton.setAttribute("onclick","deleteItem(this)");
+	li.appendChild(label);
+	li.appendChild(editButton);
+	li.appendChild(deleteButton);
+    ul.appendChild(li);
+    itemInput.value="";
+	}
+function deleteItem(element)
+{
+
+	var li=element.parentNode;
+	var ul=document.getElementById("item-list");
+	ul.removeChild(li);
+}
+function editItem(element)
+{ 
+	var li=element.parentNode;
+    var label=li.querySelector('LABEL');
+    var value1=label.innerText;
+    deleteItem(element);
+    itemInput.value=value1;
+}
+</script>
+</body>
+</html>
