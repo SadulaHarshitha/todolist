@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> To-do List </title>
+<meta name="keywords" content="to-do list">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+	background-color:black;
+     }
+h1 {
+	background-color:gray;
+	color:white;
+	text-align:center;
+	width:100%;
+	padding:20px;
+	border:black;
+   }
+section {
+	display:table;
+	width:100%;
+	clear:both;
+	}
+div{
+	float:left;
+	width:30%;
+	background-color:#5F9EA0;
+	padding:30px;
+	height:300px;
+     }
+article {
+	  float:right;
+	  width:60%;
+	  background-color:#556B2F;
+	  color:white;
+	  padding:20px;
+	  height:300px;
+	}
+button:hover{ color:green; }
+ul li{
+    margin:10px;
+}
+ul li label{
+    width:100px;
+}
+ul li button{
+            float:right;
+			background-color:grey;
+			color:black;
+            display:none;
+	}
+ul li button:hover{
+		color:maroon;
+		}
+
+</style>
+</head>
+<body>
+<h1> TO-DO LIST </h1>
+<section>
+	<div id="itemForm">
+		<h4>Enter the item</h4>
+		<input type="text" id="newItem" value="">
+		<br>
+        <button onclick="addItem()" id="b" style="display:block"> Add </button>
+        <button onclick="updateItem()" style="display:none" id="u">Update</button>
+	</div>
+	<article>
+		<h3 style="text-align:center"> List of Items <h3>
+		<ul id="item-list"></ul>
+	</article>
+</section>
+<script>
+    var itemInput=document.getElementById("newItem");
+function addItem ()
+{ 
+	var ul=document.getElementById("item-list");
+    var li=document.createElement("LI"); 
+    li.setAttribute("onmouseover","mouseOver(this)");
+    li.setAttribute("onmouseout","mouseOut(this)");
+    var label=document.createElement("LABEL");
+	var editButton=document.createElement("BUTTON")
+	editButton.innerText="Edit";
+    editButton.setAttribute("onclick","editItem(this)");
+	var deleteButton=document.createElement("BUTTON");
+	label.setAttribute("style","width:100px")
+	label.setAttribute("style","border:20px")
+	label.innerText=itemInput.value;
+	deleteButton.innerText="Delete";
+	deleteButton.setAttribute("onclick","deleteItem(this)");
+	li.appendChild(label);
+	li.appendChild(editButton);
+	li.appendChild(deleteButton);
+    ul.appendChild(li);
+    itemInput.value="";
+	}
+function deleteItem(element)
+{
+
+	var li=element.parentNode;
+	var ul=document.getElementById("item-list");
+	ul.removeChild(li);
+}
+function editItem(element)
+{ 
+	var li=element.parentNode;
+    var label=li.querySelector('LABEL');
+	label.setAttribute("id","upd");
+    itemInput.value=label.innerText;
+    var addButton=document.getElementById("b");
+    addButton.style.display="none";
+    var updateButton=document.getElementById("u");
+    updateButton.style.display="block";
+}
+function mouseOver(element)
+{
+    var c=element.children;
+    var l=c.length;
+    for(i=1;i<l;i++)
+    {
+        c[i].style.display="inline";
+    }
+}
+function mouseOut(element)
+{
+    var c=element.children;
+    var l=c.length;
+    for(i=1;i<l;i++)
+    {
+        c[i].style.display="none";
+    }
+}
+function updateItem(){
+    var label=document.getElementById("upd");
+    label.innerText=document.getElementById("newItem").value;
+    label.removeAttribute("id");
+    var addButton=document.getElementById("b");
+    addButton.style.display="block";
+    var updateButton=document.getElementById("u");
+    updateButton.style.display="none";
+	document.getElementById("newItem").value="";
+}
+</script>
+</body>
+</html>
